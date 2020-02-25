@@ -48,7 +48,6 @@ public class Space extends World
             addObject(new Asteroid(), x, y);
         }
     }
-    GreenfootImage background = getBackground();
     private void paintStars(int count)
     {
         GreenfootImage background = getBackground();
