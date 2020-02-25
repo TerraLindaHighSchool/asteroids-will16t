@@ -35,6 +35,7 @@ public class Rocket extends SmoothMover
         checkKeys();
         reloadDelayCount++;
         move();
+        checkCollision();
     }
     /**
      * Check whether there are any key pressed and react to them.
@@ -80,5 +81,14 @@ public class Rocket extends SmoothMover
             bullet.move ();
             reloadDelayCount = 0;
         }
+    }
+    private void checkCollision()
+    {
+          if( getOneIntersectingObject(Asteroid.class) != null)
+          {
+              World world = getWorld();
+              world.addObject(new Explosion(),getX(),getY());
+              world.removeObject(this);
+          }
     }
 }
