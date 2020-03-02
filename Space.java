@@ -65,7 +65,10 @@ public class Space extends World
      */
     public void gameOver() 
     {
-        // TODO: show the score board here. Currently missing.
+        int currentScore = scoreCounter.getValue();
+        int x = getWidth() / 2;
+        int y = getHeight() / 2;
+        addObject(new ScoreBoard(currentScore),x ,y);
     }
 
     /**
@@ -74,5 +77,9 @@ public class Space extends World
      */
     private void prepare()
     {
+    }
+    public void updateScore(int addToScore)
+    {
+        scoreCounter.add(addToScore);
     }
 }

@@ -12,7 +12,7 @@ import greenfoot.*;
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-
+    
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
@@ -86,9 +86,10 @@ public class Rocket extends SmoothMover
     {
           if( getOneIntersectingObject(Asteroid.class) != null)
           {
-              World world = getWorld();
-              world.addObject(new Explosion(),getX(),getY());
-              world.removeObject(this);
+              Space space = (Space) getWorld();
+              space.addObject(new Explosion(),getX(),getY());
+              space.removeObject(this);
+              space.gameOver();
           }
     }
 }
