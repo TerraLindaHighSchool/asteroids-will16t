@@ -10,7 +10,9 @@ public class Space extends World
 {
     private Counter scoreCounter;
     private int startAsteroids = 3;
-
+    private Star[] stars = new Star[210];
+    Color color1 = new Color(246,250,190);
+    Color color2 = new Color(255,255,255);
     /**
      * Create the space and all objects within it.
      */
@@ -25,16 +27,47 @@ public class Space extends World
         addObject(rocket, getWidth()/2 + 100, getHeight()/2);
 
         addAsteroids(startAsteroids);
-        paintStars(300);
+        
 
         scoreCounter = new Counter("Score: ");
         addObject(scoreCounter, 60, 480);
 
         Explosion.initializeImages();
         ProtonWave.initializeImages();
+        star();
         prepare();
     }
+    private void star()
+    {
+        for(int i = 0; i < 210; i++){
+            Star star;
+            int deltaSpeed = Greenfoot.getRandomNumber(2);
 
+            if(i < 70)
+            {
+                star = new Star(-1 - deltaSpeed, color1, getWidth(), getHeight());
+                addObject(star, star.getX(), star.getY());
+                stars[i] = star;
+            }
+
+            if(i >= 70 && i < 140)
+            {
+                star = new Star(-3 - deltaSpeed, color2, getWidth(), getHeight());
+                addObject(star, star.getX(), star.getY());
+                stars[i] = star;
+            }
+        }
+    }
+    public void act()
+    {
+        for(int i = 0; i < 210; i++)
+        {
+            if(stars[i] != null)
+            {
+                stars[i].move();
+            }
+        }
+    }
     /**
      * Add a given number of asteroids to our world. Asteroids are only added into
      * the left half of the world.
@@ -46,17 +79,6 @@ public class Space extends World
             int x = Greenfoot.getRandomNumber(getWidth()/2);
             int y = Greenfoot.getRandomNumber(getHeight()/2);
             addObject(new Asteroid(), x, y);
-        }
-    }
-    private void paintStars(int count)
-    {
-        GreenfootImage background = getBackground();
-        background.setColor(Color.WHITE);
-        for(int i = 0; i < count; i++)
-        {
-            int x = Greenfoot.getRandomNumber(getWidth());
-            int y = Greenfoot.getRandomNumber(getHeight());
-            background.fillOval(x, y, 2, 2);
         }
     }
 
